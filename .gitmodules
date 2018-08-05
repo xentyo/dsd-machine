@@ -1,0 +1,6 @@
+[submodule "nanpy"]
+	path = nanpy
+	url = https://github.com/nanpy/nanpy
+[submodule "nanpy-firmware"]
+	path = nanpy-firmware
+	url = https://github.com/nanpy/nanpy-firmware

@@ -1,5 +1,8 @@
 from nanpy import Stepper
 from nanpy import Ultrasonic
+from datetime import datetime
+from datetime import timedelta
+from nanpy import ArduinoApi
 
 defaultMotorSpeed = 5
 
@@ -11,10 +14,12 @@ class Kit:
 
 
 class Rack:
+
     def __init__(self, **kwargs):
         self.pins = kwargs.get('pins')
         self.serial = kwargs.get('serial')
         self.revsteps = 3800
+        self.api = ArduinoApi(connection=self.serial)
         self.stepper = Stepper(
             connection=self.serial,
             pin1=self.pins[0],
@@ -41,7 +46,7 @@ class Rack:
         self.stepper.step(self.step)
 
     def nextStep(self):
-        self.step += 1
+        self.step = -10
         self.stepper.step(self.step)
 
     def hasKit(self, kitId):
@@ -81,7 +86,13 @@ class Dispenser:
         self.racks.append(rack)
 
     def dispense(self, rack):
+        self.dispensed = False
+        current = datetime.now()
+        pass5seconds = current + timedelta(seconds=5)
         while not self.dispensed:
+            current = datetime.now()
+            if(current >= pass5seconds):
+                self.dispensed = True
             rack.nextStep()
 
     def findRack(self, rackId):

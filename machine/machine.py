@@ -6,7 +6,8 @@ import requests
 import json
 
 host = 'https://dsd-api.herokuapp.com/'
-apiSearch = 'api/dispenser/search?name=UTT - Vinculación - Primeros auxilios'
+dispenserName = 'UTT - Vinculación - Primeros auxilios'
+apiSearch = 'api/dispenser/search?name=' + dispenserName
 apiDispenser = 'api/dispenser/{}?kits=1'
 url = host + apiSearch
 dispenser = None
